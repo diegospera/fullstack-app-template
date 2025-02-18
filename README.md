@@ -16,6 +16,13 @@ This is a full-stack app template that I use for my own projects.
   - ESLint 8.57.0
   - Prettier 3.2.5
 
+### Security Updates
+
+- Fixed high severity vulnerability in Next.js by upgrading to 14.2.24
+- Fixed cookie vulnerability in Clerk by upgrading to 6.12.0
+- Updated drizzle-kit to latest version to address dependency vulnerabilities
+- Remaining moderate severity vulnerabilities only affect development environment
+
 ## Support
 
 Feel free to contribute to this template by submitting issues and pull requests.
