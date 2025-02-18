@@ -4,15 +4,29 @@ Contains middleware for protecting routes, checking user authentication, and red
 </ai_context>
 */
 
-import { authMiddleware } from "@clerk/nextjs"
+import { authMiddleware, redirectToSignIn } from "@clerk/nextjs"
+import { NextResponse } from "next/server"
 
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
+// List of public routes that don't require authentication
+const publicRoutes = ["/", "/about", "/pricing", "/contact"]
+
+// List of routes that should bypass the middleware entirely
+const ignoredRoutes = ["/api/webhook"]
+
 export default authMiddleware({
-  publicRoutes: ["/", "/about", "/pricing", "/contact"],
-  ignoredRoutes: ["/api/webhook"]
+  publicRoutes,
+  ignoredRoutes,
+  afterAuth(auth, req) {
+    // Handle users who aren't authenticated
+    if (!auth.userId && !publicRoutes.includes(req.nextUrl.pathname)) {
+      return redirectToSignIn({ returnBackUrl: req.url })
+    }
+
+    return NextResponse.next()
+  }
 })
 
 export const config = {
-  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"]
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/(api|trpc)(.*)"],
+  runtime: "experimental-edge"
 }

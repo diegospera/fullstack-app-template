@@ -4,6 +4,8 @@ This is a full-stack app template that I use for my own projects.
 
 ## Recent Updates
 
+- Fixed authentication middleware to properly use Clerk's `authMiddleware`
+- Added `ClerkProvider` to root layout for authentication
 - Upgraded Next.js to version 14.1.3
 - Upgraded all dependencies to their latest versions:
   - React 18.2.0
