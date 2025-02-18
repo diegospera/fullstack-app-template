@@ -12,10 +12,7 @@ export const todosTable = pgTable("todos", {
   content: text("content").notNull(),
   completed: boolean("completed").default(false).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at")
-    .defaultNow()
-    .notNull()
-    .$onUpdate(() => new Date())
+  updatedAt: timestamp("updated_at").defaultNow().notNull()
 })
 
 export type InsertTodo = typeof todosTable.$inferInsert

@@ -9,7 +9,7 @@ This client component provides the hero section for the landing page.
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
-import { ChevronRight, Rocket } from "lucide-react"
+import { ChevronRight, Rocket, Github } from "lucide-react"
 import Link from "next/link"
 import posthog from "posthog-js"
 import AnimatedGradientText from "../magicui/animated-gradient-text"
@@ -28,18 +28,13 @@ export const HeroSection = () => {
         transition={{ duration: 0.6, ease: "easeOut" }}
         className="flex items-center justify-center"
       >
-        <Link href="https://github.com/mckaywrigley/mckays-app-template">
-          <AnimatedGradientText>
-            🚀 <hr className="mx-2 h-4 w-px shrink-0 bg-gray-300" />
-            <span
-              className={cn(
-                `animate-gradient inline bg-gradient-to-r from-[#ffaa40] via-[#9c40ff] to-[#ffaa40] bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent`
-              )}
-            >
-              View the code on GitHub
-            </span>
-            <ChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" />
-          </AnimatedGradientText>
+        <Link
+          href="https://github.com/diego/fullstack-app-template"
+          target="_blank"
+          className="border-border bg-card text-card-foreground hover:bg-accent flex items-center gap-2 rounded-lg border px-4 py-2 font-medium transition-colors"
+        >
+          <Github className="size-5" />
+          Star on GitHub
         </Link>
       </motion.div>
 
@@ -55,7 +50,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
           className="text-balance text-6xl font-bold"
         >
-          Save time and start building.
+          Build your next project faster
         </motion.div>
 
         <motion.div
@@ -64,8 +59,8 @@ export const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
           className="max-w-xl text-balance text-xl"
         >
-          Use Mckay's app template to save time and get started with your next
-          project.
+          Use this app template to save time and get started with your next
+          project. Built with modern tools and best practices.
         </motion.div>
 
         <motion.div
@@ -74,13 +69,12 @@ export const HeroSection = () => {
           transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
         >
           <Link
-            href="https://github.com/mckaywrigley/mckays-app-template"
-            onClick={handleGetStartedClick}
+            href="https://github.com/diego/fullstack-app-template"
+            target="_blank"
+            className="bg-primary text-primary-foreground hover:bg-primary/90 flex items-center gap-2 rounded-lg px-6 py-3 font-medium transition-colors"
           >
-            <Button className="bg-blue-500 text-lg hover:bg-blue-600">
-              <Rocket className="mr-2 size-5" />
-              Get Started &rarr;
-            </Button>
+            <Github className="size-5" />
+            Star on GitHub
           </Link>
         </motion.div>
       </motion.div>

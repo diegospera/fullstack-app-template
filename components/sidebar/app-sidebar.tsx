@@ -16,112 +16,86 @@ import {
   Map,
   PieChart,
   Settings2,
-  SquareTerminal
+  Home,
+  Settings,
+  Terminal,
+  User
 } from "lucide-react"
 import * as React from "react"
-
+import { usePathname } from "next/navigation"
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail
-} from "@/components/ui/sidebar"
-import { NavMain } from "./nav-main"
-import { NavProjects } from "./nav-projects"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip"
 
-// Sample data
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg"
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise"
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup"
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free"
-    }
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        { title: "History", url: "#" },
-        { title: "Starred", url: "#" },
-        { title: "Settings", url: "#" }
-      ]
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        { title: "Genesis", url: "#" },
-        { title: "Explorer", url: "#" },
-        { title: "Quantum", url: "#" }
-      ]
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        { title: "Introduction", url: "#" },
-        { title: "Get Started", url: "#" },
-        { title: "Tutorials", url: "#" },
-        { title: "Changelog", url: "#" }
-      ]
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        { title: "General", url: "#" },
-        { title: "Team", url: "#" },
-        { title: "Billing", url: "#" },
-        { title: "Limits", url: "#" }
-      ]
-    }
-  ],
-  projects: [
-    { name: "Design Engineering", url: "#", icon: Frame },
-    { name: "Sales & Marketing", url: "#", icon: PieChart },
-    { name: "Travel", url: "#", icon: Map }
-  ]
+interface AppSidebarProps {
+  className?: string
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ className }: AppSidebarProps) {
+  const pathname = usePathname()
+
+  const routes = [
+    {
+      label: "Home",
+      icon: Home,
+      href: "/",
+      active: pathname === "/"
+    },
+    {
+      label: "Todo",
+      icon: Terminal,
+      href: "/todo",
+      active: pathname === "/todo"
+    },
+    {
+      label: "Analytics",
+      icon: PieChart,
+      href: "/analytics",
+      active: pathname === "/analytics"
+    },
+    {
+      label: "Settings",
+      icon: Settings2,
+      href: "/settings",
+      active: pathname === "/settings"
+    }
+  ]
+
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
-      </SidebarHeader>
-      <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-      </SidebarContent>
-      <SidebarFooter>
-        <NavUser />
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
+    <div className={cn("pb-12", className)}>
+      <div className="space-y-4 py-4">
+        <div className="px-3 py-2">
+          <div className="mt-3 space-y-1">
+            <nav className="grid items-start gap-2">
+              {routes.map(route => (
+                <Tooltip key={route.href}>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={route.active ? "default" : "ghost"}
+                      className="w-full justify-start"
+                      size="sm"
+                      onClick={() => {
+                        // Handle navigation
+                      }}
+                    >
+                      <route.icon className="mr-2 size-4" />
+                      {route.label}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">{route.label}</TooltipContent>
+                </Tooltip>
+              ))}
+            </nav>
+          </div>
+        </div>
+        <Separator />
+      </div>
+    </div>
   )
 }

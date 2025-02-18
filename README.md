@@ -1,12 +1,24 @@
-# Mckay's App Template
+# Diego's Full-Stack Template (mckay fork)
 
-This is a full-stack app template for courses on [Takeoff](https://JoinTakeoff.com/).
+This is a full-stack app template that I use for my own projects.
 
-## Sponsors
+## Recent Updates
 
-If you are interested in sponsoring my repos, please contact me at [ads@takeoffai.org](mailto:ads@takeoffai.org).
+- Upgraded Next.js to version 14.1.3
+- Upgraded all dependencies to their latest versions:
+  - React 18.2.0
+  - TypeScript 5.4.2
+  - Tailwind CSS 3.4.1
+  - Clerk 4.29.9
+  - Drizzle ORM 0.29.5
+  - Stripe 14.19.0
+  - PostHog 1.116.6
+  - ESLint 8.57.0
+  - Prettier 3.2.5
 
-Or sponsor me directly on [GitHub Sponsors](https://github.com/sponsors/mckaywrigley).
+## Support
+
+Feel free to contribute to this template by submitting issues and pull requests.
 
 ## Tech Stack
 

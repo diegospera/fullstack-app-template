@@ -17,7 +17,7 @@ import {
 import { Menu, Rocket, X } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { ThemeSwitcher } from "./utilities/theme-switcher"
+import ThemeSwitcher from "./utilities/theme-switcher"
 
 const navLinks = [
   { href: "/about", label: "About" },
@@ -46,26 +46,29 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-colors ${
+      className={`sticky top-0 z-50 w-full transition-colors ${
         isScrolled
           ? "bg-background/80 shadow-sm backdrop-blur-sm"
           : "bg-background"
       }`}
     >
-      <div className="mx-auto flex max-w-screen-2xl items-center justify-between p-4">
-        <div className="flex items-center space-x-2 hover:cursor-pointer hover:opacity-80">
-          <Rocket className="size-6" />
-          <Link href="/" className="text-xl font-bold">
-            Mckay's App Template
+      <div className="mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4">
+        <div className="flex items-center space-x-2">
+          <Link
+            href="/"
+            className="font-display flex items-center gap-2 text-xl font-bold hover:opacity-80"
+          >
+            <Rocket className="size-6" />
+            <span>Fullstack App Template</span>
           </Link>
         </div>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 space-x-2 font-semibold md:flex">
+        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
           {navLinks.map(link => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-full px-3 py-1 hover:opacity-80"
+              className="hover:text-foreground/80 transition-colors"
             >
               {link.label}
             </Link>
@@ -76,7 +79,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-full px-3 py-1 hover:opacity-80"
+                className="hover:text-foreground/80 transition-colors"
               >
                 {link.label}
               </Link>
@@ -89,11 +92,13 @@ export default function Header() {
 
           <SignedOut>
             <SignInButton>
-              <Button variant="outline">Login</Button>
+              <Button variant="outline" size="sm">
+                Login
+              </Button>
             </SignInButton>
 
             <SignUpButton>
-              <Button className="bg-blue-500 hover:bg-blue-600">Sign Up</Button>
+              <Button size="sm">Sign Up</Button>
             </SignUpButton>
           </SignedOut>
 
@@ -101,60 +106,55 @@ export default function Header() {
             <UserButton />
           </SignedIn>
 
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMenu}
-              aria-label="Toggle menu"
-            >
-              {isMenuOpen ? (
-                <X className="size-6" />
-              ) : (
-                <Menu className="size-6" />
-              )}
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
+          </Button>
         </div>
       </div>
 
       {isMenuOpen && (
-        <nav className="bg-primary-foreground text-primary p-4 md:hidden">
-          <ul className="space-y-2">
-            <li>
+        <nav className="border-t p-4 md:hidden">
+          <div className="flex flex-col space-y-3">
+            <Link
+              href="/"
+              className="hover:text-foreground/80 transition-colors"
+              onClick={toggleMenu}
+            >
+              Home
+            </Link>
+            {navLinks.map(link => (
               <Link
-                href="/"
-                className="block hover:underline"
+                key={link.href}
+                href={link.href}
+                className="hover:text-foreground/80 transition-colors"
                 onClick={toggleMenu}
               >
-                Home
+                {link.label}
               </Link>
-            </li>
-            {navLinks.map(link => (
-              <li key={link.href}>
+            ))}
+            <SignedIn>
+              {signedInLinks.map(link => (
                 <Link
+                  key={link.href}
                   href={link.href}
-                  className="block hover:underline"
+                  className="hover:text-foreground/80 transition-colors"
                   onClick={toggleMenu}
                 >
                   {link.label}
                 </Link>
-              </li>
-            ))}
-            <SignedIn>
-              {signedInLinks.map(link => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="block hover:underline"
-                    onClick={toggleMenu}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
               ))}
             </SignedIn>
-          </ul>
+          </div>
         </nav>
       )}
     </header>

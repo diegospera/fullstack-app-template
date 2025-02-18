@@ -43,7 +43,8 @@ export function TodoList({ userId, initialTodos }: TodoListProps) {
       const result = await createTodoAction({
         userId: userId,
         content: newTodo,
-        completed: false
+        completed: false,
+        updatedAt: new Date()
       })
       if (result.isSuccess) {
         setTodos(prevTodos =>

@@ -6,36 +6,22 @@ This client component provides a theme switcher for the app.
 
 "use client"
 
-import { cn } from "@/lib/utils"
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
-import { HTMLAttributes, ReactNode } from "react"
+import { Moon, Sun } from "lucide-react"
 
-interface ThemeSwitcherProps extends HTMLAttributes<HTMLDivElement> {
-  children?: ReactNode
-}
-
-export const ThemeSwitcher = ({ children, ...props }: ThemeSwitcherProps) => {
-  const { setTheme, theme } = useTheme()
-
-  const handleChange = (theme: "dark" | "light") => {
-    localStorage.setItem("theme", theme)
-    setTheme(theme)
-  }
+export default function ThemeSwitcher() {
+  const { theme, setTheme } = useTheme()
 
   return (
-    <div
-      className={cn(
-        "p-1 hover:cursor-pointer hover:opacity-50",
-        props.className
-      )}
-      onClick={() => handleChange(theme === "light" ? "dark" : "light")}
-    >
-      {theme === "dark" ? (
-        <Moon className="size-6" />
-      ) : (
-        <Sun className="size-6" />
-      )}
+    <div className="flex items-center justify-center">
+      <button
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+      >
+        <Sun className="size-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <Moon className="absolute size-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+        <span className="sr-only">Toggle theme</span>
+      </button>
     </div>
   )
 }
